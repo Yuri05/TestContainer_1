@@ -1,4 +1,5 @@
-FROM rstudio/r-base:3.6.3-centos7
+ARG rversion
+FROM rstudio/r-base:${rversion}-centos7
 
 ENTRYPOINT ["sh"]
 RUN mkdir -p /tmp_setup 
