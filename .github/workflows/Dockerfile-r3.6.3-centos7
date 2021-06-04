@@ -1,0 +1,41 @@
+FROM rstudio/r-base:3.6.3-centos7
+
+ENTRYPOINT ["sh"]
+RUN mkdir -p /tmp_setup 
+
+# Install mono
+RUN rpm --import "http://keyserver.ubuntu.com/pks/lookup?op=get&search=0x3FA7E0328081BFF6A14DA29AA6A19B38D3D831EF" && \
+    yum update -y && \
+    yum-config-manager --add-repo http://repo1.xorcom.com/repos/mono-project/mono-project/ && \
+    yum install -y mono-complete-0:5.18.0.240-0.xamarin.2.epel7.x86_64
+
+# Install nuget, dotnet-sdk-3.1, and msbuild
+RUN yum install -y libxml2-devel git nuget openmpi-devel && \
+    rpm -Uvh https://packages.microsoft.com/config/centos/7/packages-microsoft-prod.rpm && \
+    yum install -y https://packages.microsoft.com/centos/7/prod/netstandard-targeting-pack-2.1.0-x64.rpm && \
+    yum install -y dotnet-sdk-3.1
+
+# Install pandoc
+ADD https://github.com/jgm/pandoc/releases/download/2.9.2.1/pandoc-2.9.2.1-linux-amd64.tar.gz /tmp_setup/
+RUN mkdir /pandoc && \
+    cd /pandoc && \
+    mv /tmp_setup/pandoc-2.9.2.1-linux-amd64.tar.gz /pandoc && \
+    tar -xzf pandoc-2.9.2.1-linux-amd64.tar.gz && \
+    rm -f /usr/bin/pandoc && \
+    ln -s /pandoc/pandoc-2.9.2.1/bin/pandoc /usr/bin/pandoc
+
+# Install R package dependencies
+COPY .github/workflows/install_packages.R /tmp_setup/install_packages.R
+RUN Rscript --no-save /tmp_setup/install_packages.R
+
+# Setup environment 
+ENV LC_ALL=en_US.UTF-8
+ENV LD_LIBRARY_PATH="/usr/lib64/openmpi/lib:/opt/R/3.6.3/lib/R/library/ospsuite/lib:$LD_LIBRARY_PATH"
+ENV PATH="/opt/R/3.6.3/bin:${PATH}"
+
+# Install RMPI
+ADD https://cran.r-project.org/src/contrib/Rmpi_0.6-9.1.tar.gz /tmp_setup/
+RUN R CMD INSTALL /tmp_setup/Rmpi_0.6-9.1.tar.gz --configure-args="--with-Rmpi-include=/usr/include/openmpi-x86_64 --with-Rmpi-libpath=/usr/lib64/openmpi/lib --with-Rmpi-type=OPENMPI"
+
+# Cleanup
+RUN rm -rf /tmp_setup
