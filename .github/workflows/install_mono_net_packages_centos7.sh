@@ -7,7 +7,7 @@ yum-config-manager --add-repo http://repo1.xorcom.com/repos/mono-project/mono-pr
 yum install -y mono-complete-0:5.18.0.240-0.xamarin.2.epel7.x86_64
 
 # Install nuget, dotnet-sdk-3.1, and msbuild
-yum install -y libxml2-devel git nuget openmpi-devel && \
+yum install -y libxml2-devel git nuget openmpi-devel wget && \
 rpm -Uvh https://packages.microsoft.com/config/centos/7/packages-microsoft-prod.rpm && \
 yum install -y https://packages.microsoft.com/centos/7/prod/netstandard-targeting-pack-2.1.0-x64.rpm && \
 yum install -y dotnet-sdk-3.1
