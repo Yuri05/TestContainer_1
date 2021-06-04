@@ -14,4 +14,3 @@ RUN /tmp_setup/install_mono_net_packages_centos7.sh
 
 # Install pandoc
 RUN /tmp_setup/install_pandoc.sh
-
