@@ -21,8 +21,7 @@ RUN mkdir /pandoc && \
     ln -s /pandoc/pandoc-2.9.2.1/bin/pandoc /usr/bin/pandoc
 
 # Install R package dependencies
-COPY .github/workflows/install_packages.R /tmp_setup/install_packages.R
-RUN Rscript --no-save /tmp_setup/install_packages.R
+RUN R --no-save -e "source('/tmp_setup/install_packages.R')"
 
 # Setup environment 
 ENV LC_ALL=en_US.UTF-8
