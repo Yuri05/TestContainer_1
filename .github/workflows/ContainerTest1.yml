@@ -28,6 +28,6 @@ jobs:
           file: .github/workflows/Dockerfile
           push: true
           tags: |
-#            ghcr.io/yuri05/base-r3.6.3-centos7:latest
             ghcr.io/yuri05/base-r3.6.3-centos7:${{ steps.tag_name.outputs.SOURCE_TAG}}
+#            ghcr.io/yuri05/base-r3.6.3-centos7:latest
 #            docker.pkg.github.com/yuri05/hello-github-actions/base-r3.6.3-centos7:${{ steps.tag_name.outputs.SOURCE_TAG}}
