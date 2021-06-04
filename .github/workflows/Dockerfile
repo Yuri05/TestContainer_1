@@ -1,6 +1,6 @@
 ARG rversion
-ARG osversion
-FROM rstudio/r-base:${rversion}-${osversion}
+ARG os-version
+FROM rstudio/r-base:${rversion}-${os-version}
 
 ENTRYPOINT ["sh"]
 RUN mkdir -p /tmp_setup 
@@ -12,7 +12,7 @@ RUN chmod ugo+x /tmp_setup/*.sh
 #RUN R --no-save -e "source('/tmp_setup/install_packages.R')"
 
 # Install mono, nuget, dotnet-sdk-3.1 and required packages
-RUN /tmp_setup/install_mono_net_packages_${osversion}.sh
+RUN /tmp_setup/install_mono_net_packages_${os-version}.sh
 
 # Setup environment 
 ENV LC_ALL=en_US.UTF-8
