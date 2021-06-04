@@ -1,18 +1,19 @@
 ARG rversion
-ARG osversion
-FROM rstudio/r-base:${rversion}-${osversion}
+FROM rstudio/r-base:${rversion}-centos7
 
 ENTRYPOINT ["sh"]
+
+# Copy installation scripts
 RUN mkdir -p /tmp_setup 
 COPY .github/workflows/*.R /tmp_setup/
 COPY .github/workflows/*.sh /tmp_setup/
 RUN chmod ugo+x /tmp_setup/*.sh
 
-# Install R package dependencies
-#RUN R --no-save -e "source('/tmp_setup/install_packages.R')"
+# Install mono, dotnet-sdk and required packages
+RUN /tmp_setup/install_mono_net_packages_centos7.sh
 
-# Install mono, nuget, dotnet-sdk-3.1 and required packages
-RUN /tmp_setup/install_mono_net_packages_${osversion}.sh
+# Install R package dependencies
+RUN R --no-save -e "source('/tmp_setup/install_packages.R')"
 
 # Setup environment 
 ENV LC_ALL=en_US.UTF-8
@@ -21,3 +22,6 @@ ENV PATH="/opt/R/${rversion}/bin:${PATH}"
 
 #Install pandoc and Rmpi
 RUN /tmp_setup/install_pandoc_rmpi.sh
+
+# Cleanup
+RUN rm -rf /tmp_setup
