@@ -1,7 +1,7 @@
 #!/bin/sh
 
 # Install pandoc
-wget https://github.com/jgm/pandoc/releases/download/2.9.2.1/pandoc-2.9.2.1-linux-amd64.tar.gz -P /tmp_setup/
+wget -q --show-progress https://github.com/jgm/pandoc/releases/download/2.9.2.1/pandoc-2.9.2.1-linux-amd64.tar.gz -P /tmp_setup/
 mkdir /pandoc && \
 cd /pandoc && \
 mv /tmp_setup/pandoc-2.9.2.1-linux-amd64.tar.gz /pandoc && \
