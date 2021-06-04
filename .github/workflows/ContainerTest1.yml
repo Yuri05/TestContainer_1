@@ -27,8 +27,8 @@ jobs:
           context: .
           file: .github/workflows/Dockerfile
           build-args: |
-            rversion=3.6.3
-            osversion=centos7
+            r_version=3.6.3
+            os_version=centos7
           push: true
           tags: |
             ghcr.io/yuri05/base-r3.6.3-centos7:${{ steps.tag_name.outputs.SOURCE_TAG}}
