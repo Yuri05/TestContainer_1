@@ -1,3 +1,3 @@
 #!/bin/sh
 
-yum install -y wget
+yum install -y wget openmpi-devel
