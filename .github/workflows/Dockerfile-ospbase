@@ -22,7 +22,7 @@ RUN R --no-save -e "source('/tmp_setup/install_packages.R')"
 
 # Setup environment 
 ENV LC_ALL=en_US.UTF-8
-ENV LD_LIBRARY_PATH="/usr/lib64/openmpi/lib:/opt/R/${r_version}/lib/R/library/ospsuite/lib:$LD_LIBRARY_PATH"
+ENV LD_LIBRARY_PATH="/usr/lib64/openmpi/lib:/usr/lib/x86_64-linux-gnu/openmpi/lib:/opt/R/${r_version}/lib/R/library/ospsuite/lib:$LD_LIBRARY_PATH"
 ENV PATH="/opt/R/${r_version}/bin:${PATH}"
 
 #Install pandoc
