@@ -25,8 +25,11 @@ ENV LC_ALL=en_US.UTF-8
 ENV LD_LIBRARY_PATH="/usr/lib64/openmpi/lib:/opt/R/${r_version}/lib/R/library/ospsuite/lib:$LD_LIBRARY_PATH"
 ENV PATH="/opt/R/${r_version}/bin:${PATH}"
 
-#Install pandoc and Rmpi
-RUN /tmp_setup/install_pandoc_rmpi.sh
+#Install pandoc
+RUN /tmp_setup/install_pandoc.sh
+
+#Install Rmpi
+RUN /tmp_setup/install_rmpi_${os_version}.sh
 
 # Cleanup
 RUN rm -rf /tmp_setup
