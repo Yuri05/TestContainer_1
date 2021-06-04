@@ -13,4 +13,7 @@ RUN chmod ugo+x /tmp_setup/*.sh
 RUN /tmp_setup/install_mono_net_packages_centos7.sh
 
 # Install pandoc
-RUN /tmp_setup/install_pandoc.sh
+#RUN /tmp_setup/install_pandoc.sh
+
+#Install RMPI
+RUN /tmp_setup/install_rmpi.sh
