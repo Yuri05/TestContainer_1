@@ -7,10 +7,6 @@ on:
 jobs:
   build:
 #    name: Docker test 2
-    strategy:
-        matrix:
-#            r-os: [r3.6.3-centos7, r4.1.0-centos7]
-            r-os: [r3.6.3-centos7]
     runs-on: ubuntu-latest
     steps:
       - name: tag name
@@ -23,7 +19,7 @@ jobs:
         uses: docker/login-action@v1
         with:
           registry: ghcr.io
-          username: ${{ github.actor }}
+          username: ${{ github.repository_owner }}
           password: ${{ secrets.GITHUB_TOKEN }}
       - name: Build
         uses: docker/build-push-action@v2
