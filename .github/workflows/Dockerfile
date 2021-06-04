@@ -1,6 +1,8 @@
 ARG rversion
 ARG osversion
 FROM rstudio/r-base:${rversion}-${osversion}
+ARG rversion
+ARG osversion
 
 ENTRYPOINT ["sh"]
 RUN mkdir -p /tmp_setup 
